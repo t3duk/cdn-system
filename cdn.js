@@ -23,24 +23,13 @@ app.get("/", (req, res) => {
 
 app.get("/:file", (req, res) => {
   const file = req.params.file;
-  // if the file requested is .gitignore, index.js, package.json, package-lock.json or in the directory /node_modules, return the index.html
-  if (
-    file === ".gitignore" ||
-    file === "index.js" ||
-    file === "package.json" ||
-    file === "package-lock.json" ||
-    file.includes("node_modules")
-  ) {
-    res.send(index);
+  if (fs.existsSync(__dirname + "/" + file)) {
+    res.sendFile(__dirname + "/" + file);
   } else {
-    if (fs.existsSync(__dirname + file)) {
-      res.sendFile(__dirname + file);
-    } else {
-      res.send(index);
-    }
+    res.send(index);
   }
 });
 
 app.listen(port, () => {
-  console.log(`CDN listening at http://localhost:${port}`);
+  console.log(`1 CDN listening at http://localhost:${port}`);
 });
