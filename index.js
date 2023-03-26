@@ -23,10 +23,21 @@ app.get("/", (req, res) => {
 
 app.get("/:file", (req, res) => {
   const file = req.params.file;
-  if (fs.existsSync(__dirname + file)) {
-    res.sendFile(__dirname + file);
-  } else {
+  // if the file requested is .gitignore, index.js, package.json, package-lock.json or in the directory /node_modules, return the index.html
+  if (
+    file === ".gitignore" ||
+    file === "index.js" ||
+    file === "package.json" ||
+    file === "package-lock.json" ||
+    file.includes("node_modules")
+  ) {
     res.send(index);
+  } else {
+    if (fs.existsSync(__dirname + file)) {
+      res.sendFile(__dirname + file);
+    } else {
+      res.send(index);
+    }
   }
 });
 
