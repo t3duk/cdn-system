@@ -23,8 +23,32 @@ app.get("/", (req, res) => {
 
 app.get("/:file", (req, res) => {
   const file = req.params.file;
+
   if (fs.existsSync(__dirname + "/" + file)) {
     res.sendFile(__dirname + "/" + file);
+  } else {
+    res.send(index);
+  }
+});
+
+app.get("/:folder/:file", (req, res) => {
+  const folder = req.params.folder;
+  const file = req.params.file;
+
+  if (fs.existsSync(__dirname + "/" + folder + "/" + file)) {
+    res.sendFile(__dirname + "/" + folder + "/" + file);
+  } else {
+    res.send(index);
+  }
+});
+
+app.get("/:folder1/:folder2/:file", (req, res) => {
+  const folder1 = req.params.folder1;
+  const folder2 = req.params.folder2;
+  const file = req.params.file;
+
+  if (fs.existsSync(__dirname + "/" + folder1 + "/" + folder2 + "/" + file)) {
+    res.sendFile(__dirname + "/" + folder1 + "/" + folder2 + "/" + file);
   } else {
     res.send(index);
   }
