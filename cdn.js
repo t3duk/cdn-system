@@ -1,7 +1,10 @@
 const express = require("express");
+const morgan = require("morgan");
 const fs = require("fs");
 const app = express();
 const port = 1255;
+
+app.use(morgan("dev"));
 
 const index = `<!DOCTYPE html>
 <html lang="en">
