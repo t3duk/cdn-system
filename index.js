@@ -23,8 +23,8 @@ app.get("/", (req, res) => {
 
 app.get("/:file", (req, res) => {
   const file = req.params.file;
-  if (fs.existsSync(__dirname + "/cdn/" + file)) {
-    res.sendFile(__dirname + "/cdn/" + file);
+  if (fs.existsSync(__dirname + file)) {
+    res.sendFile(__dirname + file);
   } else {
     res.send(index);
   }
